@@ -17,7 +17,7 @@ public struct ActivityIndicator: UIViewRepresentable {
     /// The style of the indicator
     public let style: UIActivityIndicatorView.Style
     /// Whether the activity indicator is spinning
-    @Binding public var animating: Bool?
+    public var animating: Binding<Bool>?
     
     public func makeUIView(context: UIViewRepresentableContext<ActivityIndicator>) -> ActivityIndicator.UIViewType {
         return UIActivityIndicatorView(style: style)
@@ -25,7 +25,7 @@ public struct ActivityIndicator: UIViewRepresentable {
     
     public func updateUIView(_ uiView: ActivityIndicator.UIViewType, context: UIViewRepresentableContext<ActivityIndicator>) {
         // If animating is not set, animate always
-        if (animating ?? true) {
+        if (animating?.value ?? true) {
             uiView.startAnimating()
         } else {
             uiView.stopAnimating()
