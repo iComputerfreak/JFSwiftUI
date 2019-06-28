@@ -1,7 +1,9 @@
 import XCTest
 @testable import JFSwiftUI
 
+@available(iOS 13.0, tvOS 13.0, *)
 final class JFSwiftUITests: XCTestCase {
+    
     func testExample() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct

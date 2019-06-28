@@ -19,6 +19,11 @@ public struct ActivityIndicator: UIViewRepresentable {
     /// Whether the activity indicator is spinning
     public var animating: Binding<Bool>?
     
+    public init(style: UIActivityIndicatorView.Style = .medium, animating: Binding<Bool>? = nil) {
+        self.style = style
+        self.animating = animating
+    }
+    
     public func makeUIView(context: UIViewRepresentableContext<ActivityIndicator>) -> ActivityIndicator.UIViewType {
         return UIActivityIndicatorView(style: style)
     }

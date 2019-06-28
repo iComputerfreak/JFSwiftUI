@@ -19,6 +19,12 @@ public struct SearchBar: UIViewRepresentable {
     /// The text in the search text field
     @Binding public var text: String
     
+    public init(text: Binding<String>, onSearchButtonClicked: ((String) -> Void)? = nil, onSearchEditingChanged: ((String) -> Void)? = nil) {
+        $text = text
+        self.onSearchButtonClicked = onSearchButtonClicked
+        self.onSearchEditingChanged = onSearchEditingChanged
+    }
+    
     public class Coordinator: NSObject, UISearchBarDelegate {
         
         @Binding var text: String
