@@ -10,14 +10,14 @@ import UIKit
 
 /// Represents a search bar view
 @available(iOS 13.0, tvOS 13.0, *)
-struct SearchBar: UIViewRepresentable {
+public struct SearchBar: UIViewRepresentable {
     
     /// Gets called when the keyboard search button is pressed
-    var onSearchButtonClicked: ((String) -> Void)?
+    public var onSearchButtonClicked: ((String) -> Void)?
     /// Gets called when the search text field stopped receiving input for 500 ms
-    var onSearchEditingChanged: ((String) -> Void)?
+    public var onSearchEditingChanged: ((String) -> Void)?
     /// The text in the search text field
-    @Binding var text: String
+    @Binding public var text: String
     
     class Coordinator: NSObject, UISearchBarDelegate {
         

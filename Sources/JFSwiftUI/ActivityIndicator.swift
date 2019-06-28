@@ -10,14 +10,14 @@ import UIKit
 
 /// Represents a spinning activity indicator view
 @available(iOS 13.0, tvOS 13.0, *)
-struct ActivityIndicator: UIViewRepresentable {
+public struct ActivityIndicator: UIViewRepresentable {
     
     typealias UIViewType = UIActivityIndicatorView
     
     /// The style of the indicator
-    let style: UIActivityIndicatorView.Style
+    public let style: UIActivityIndicatorView.Style
     /// Whether the activity indicator is spinning
-    @Binding var animating: Bool?
+    @Binding public var animating: Bool?
     
     func makeUIView(context: UIViewRepresentableContext<ActivityIndicator>) -> ActivityIndicator.UIViewType {
         return UIActivityIndicatorView(style: style)
