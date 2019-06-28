@@ -41,6 +41,7 @@ public struct SearchBar: UIViewRepresentable {
         
         public func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
             onSearchButtonClicked?()
+            searchBar.resignFirstResponder()
         }
     }
     
@@ -64,7 +65,7 @@ public struct SearchBar: UIViewRepresentable {
             // Remove duplicate calls
             .removeDuplicates()
             // Call the closure
-            .sink(receiveValue: { (searchText) in
+            .sink(receiveValue: { _ in
                 self.onSearchEditingChanged?()
             })
         
