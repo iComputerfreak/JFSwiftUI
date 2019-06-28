@@ -19,7 +19,7 @@ public struct SearchBar: UIViewRepresentable {
     /// The text in the search text field
     @Binding public var text: String
     
-    class Coordinator: NSObject, UISearchBarDelegate {
+    public class Coordinator: NSObject, UISearchBarDelegate {
         
         @Binding var text: String
         var onSearchButtonClicked: ((String) -> Void)?
@@ -29,20 +29,20 @@ public struct SearchBar: UIViewRepresentable {
             self.onSearchButtonClicked = onSearchBarButtonClicked
         }
         
-        func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        public func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
             text = searchText
         }
         
-        func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        public func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
             onSearchButtonClicked?(text)
         }
     }
     
-    func makeCoordinator() -> Coordinator {
+    public func makeCoordinator() -> Coordinator {
         return Coordinator(text: $text, onSearchBarButtonClicked: onSearchButtonClicked)
     }
     
-    func makeUIView(context: UIViewRepresentableContext<SearchBar>) -> UISearchBar {
+    public func makeUIView(context: UIViewRepresentableContext<SearchBar>) -> UISearchBar {
         let searchBar = UISearchBar(frame: .zero)
         searchBar.delegate = context.coordinator
         searchBar.placeholder = "Search"
@@ -65,7 +65,7 @@ public struct SearchBar: UIViewRepresentable {
         return searchBar
     }
     
-    func updateUIView(_ uiView: UISearchBar, context: UIViewRepresentableContext<SearchBar>) {
+    public func updateUIView(_ uiView: UISearchBar, context: UIViewRepresentableContext<SearchBar>) {
         uiView.text = text
         
         // Change appearance according to color scheme
