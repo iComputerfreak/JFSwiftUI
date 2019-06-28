@@ -13,13 +13,13 @@ import UIKit
 public struct SearchBar: UIViewRepresentable {
     
     /// Gets called when the keyboard search button is pressed
-    public var onSearchButtonClicked: ((String) -> Void)?
+    public var onSearchButtonClicked: (() -> Void)?
     /// Gets called when the search text field stopped receiving input for 500 ms
-    public var onSearchEditingChanged: ((String) -> Void)?
+    public var onSearchEditingChanged: (() -> Void)?
     /// The text in the search text field
     @Binding public var text: String
     
-    public init(text: Binding<String>, onSearchButtonClicked: ((String) -> Void)? = nil, onSearchEditingChanged: ((String) -> Void)? = nil) {
+    public init(text: Binding<String>, onSearchButtonClicked: (() -> Void)? = nil, onSearchEditingChanged: (() -> Void)? = nil) {
         $text = text
         self.onSearchButtonClicked = onSearchButtonClicked
         self.onSearchEditingChanged = onSearchEditingChanged
@@ -28,9 +28,9 @@ public struct SearchBar: UIViewRepresentable {
     public class Coordinator: NSObject, UISearchBarDelegate {
         
         @Binding var text: String
-        var onSearchButtonClicked: ((String) -> Void)?
+        var onSearchButtonClicked: (() -> Void)?
         
-        init(text: Binding<String>, onSearchBarButtonClicked: ((String) -> Void)?) {
+        init(text: Binding<String>, onSearchBarButtonClicked: (() -> Void)?) {
             $text = text
             self.onSearchButtonClicked = onSearchBarButtonClicked
         }
@@ -40,7 +40,7 @@ public struct SearchBar: UIViewRepresentable {
         }
         
         public func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-            onSearchButtonClicked?(text)
+            onSearchButtonClicked?()
         }
     }
     
@@ -65,7 +65,7 @@ public struct SearchBar: UIViewRepresentable {
             .removeDuplicates()
             // Call the closure
             .sink(receiveValue: { (searchText) in
-                self.onSearchEditingChanged?(searchText ?? "")
+                self.onSearchEditingChanged?()
             })
         
         return searchBar
