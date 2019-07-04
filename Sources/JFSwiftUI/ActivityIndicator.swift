@@ -9,7 +9,7 @@ import SwiftUI
 import UIKit
 
 /// Represents a spinning activity indicator view
-@available(iOS 13.0, tvOS 13.0, *)
+@available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 public struct ActivityIndicator: UIViewRepresentable {
     
     public typealias UIViewType = UIActivityIndicatorView

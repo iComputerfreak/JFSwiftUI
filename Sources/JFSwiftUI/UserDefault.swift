@@ -5,10 +5,10 @@
 //  Created by Jonas Frey on 04.07.19.
 //
 
-import Foundation
 import SwiftUI
 
 /// Represents a property wrapper that provides read/write access to a value stored in UserDefaults
+@available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 @propertyWrapper
 public struct UserDefault<T> where T: Codable {
     
