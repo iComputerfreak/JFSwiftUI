@@ -20,7 +20,7 @@ public struct SearchBar: UIViewRepresentable {
     @Binding public var text: String
     
     public init(text: Binding<String>, onSearchButtonClicked: (() -> Void)? = nil, onSearchEditingChanged: (() -> Void)? = nil) {
-        $text = text
+        self._text = text
         self.onSearchButtonClicked = onSearchButtonClicked
         self.onSearchEditingChanged = onSearchEditingChanged
     }
@@ -31,7 +31,7 @@ public struct SearchBar: UIViewRepresentable {
         var onSearchButtonClicked: (() -> Void)?
         
         init(text: Binding<String>, onSearchBarButtonClicked: (() -> Void)?) {
-            $text = text
+            self._text = text
             self.onSearchButtonClicked = onSearchBarButtonClicked
         }
         
