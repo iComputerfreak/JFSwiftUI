@@ -30,7 +30,7 @@ public struct ActivityIndicator: UIViewRepresentable {
     
     public func updateUIView(_ uiView: ActivityIndicator.UIViewType, context: UIViewRepresentableContext<ActivityIndicator>) {
         // If animating is not set, animate always
-        if (animating?.value ?? true) {
+        if (animating?.wrappedValue ?? true) {
             uiView.startAnimating()
         } else {
             uiView.stopAnimating()
