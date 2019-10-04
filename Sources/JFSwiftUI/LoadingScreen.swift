@@ -12,34 +12,19 @@ public struct LoadingScreen<Content: View>: View {
     
     public var isLoading: Bool
     public var content: Content
-    public var navigationBarTitle: String?
     
-    public init(isLoading: Bool, navigationBarTitle: String?, content: () -> Content) {
+    public init(isLoading: Bool, content: () -> Content) {
         self.isLoading = isLoading
         self.content = content()
-        self.navigationBarTitle = navigationBarTitle
     }
     
     public var body: some View {
-        // Group is required to prevent return type inferrence error
-        Group {
-            if (isLoading) {
-                // Create a loading screen
-                if navigationBarTitle != nil {
-                    self.loadingScreen
-                        .navigationBarTitle(navigationBarTitle!)
-                } else {
-                    self.loadingScreen
-                }
-            } else {
-                // Show the actual content
-                if navigationBarTitle != nil {
-                    self.content
-                        .navigationBarTitle(navigationBarTitle!)
-                } else {
-                    self.content
-                }
-            }
+        if (isLoading) {
+            // Create a loading screen
+            return AnyView(self.loadingScreen)
+        } else {
+            // Show the actual content
+            return AnyView(self.content)
         }
     }
     
