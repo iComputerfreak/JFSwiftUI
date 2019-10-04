@@ -12,6 +12,7 @@ public struct LoadingScreen<Content: View>: View {
     
     @Binding private var isLoading: Bool
     public var content: Content
+    public var navigationBarTitle: String?
     
     public init(isLoading: Binding<Bool>, content: () -> Content) {
         self._isLoading = isLoading
@@ -23,15 +24,29 @@ public struct LoadingScreen<Content: View>: View {
         Group {
             if (isLoading) {
                 // Create a loading screen
-                HStack {
-                    ActivityIndicator(style: .medium)
-                    Text("Loading...")
-                        .font(.headline)
+                if navigationBarTitle != nil {
+                    self.loadingScreen
+                        .navigationBarTitle(navigationBarTitle!)
+                } else {
+                    self.loadingScreen
                 }
             } else {
                 // Show the actual content
-                self.content
+                if navigationBarTitle != nil {
+                    self.content
+                        .navigationBarTitle(navigationBarTitle!)
+                } else {
+                    self.content
+                }
             }
+        }
+    }
+    
+    private var loadingScreen: some View {
+        HStack {
+            ActivityIndicator(style: .medium)
+            Text("Loading...")
+                .font(.headline)
         }
     }
 }
