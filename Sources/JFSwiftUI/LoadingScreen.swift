@@ -14,8 +14,9 @@ public struct LoadingScreen<Content: View>: View {
     public var content: Content
     public var navigationBarTitle: String?
     
-    public init(isLoading: Binding<Bool>, content: () -> Content) {
+    public init(isLoading: Binding<Bool>, navigationBarTitle: String, content: () -> Content) {
         self._isLoading = isLoading
+        self.navigationBarTitle = navigationBarTitle
         self.content = content()
     }
     
