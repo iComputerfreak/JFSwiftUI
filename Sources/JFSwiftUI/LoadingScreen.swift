@@ -10,13 +10,13 @@ import SwiftUI
 @available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 public struct LoadingScreen<Content: View>: View {
     
-    public var isLoading: Bool
-    public var content: Content
+    @State private var isLoading: Bool
+    @State private var content: Content
     public var navigationBarTitle: String?
     
     public init(isLoading: Bool, navigationBarTitle: String?, content: () -> Content) {
-        self.isLoading = isLoading
-        self.content = content()
+        self._isLoading = State<Bool>(initialValue: isLoading)
+        self._content = State<Content>(initialValue: content())
         self.navigationBarTitle = navigationBarTitle
     }
     
