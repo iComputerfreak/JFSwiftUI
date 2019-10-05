@@ -43,7 +43,7 @@ public struct CollectionView<Data: Hashable, Content: View> : View {
                         self.content(object)
                     }
                     // Make items left-aligned
-                    //Spacer()
+                    Spacer()
                 }
             }
             // Make rows top-aligned
