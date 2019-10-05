@@ -44,7 +44,7 @@ public struct CollectionView<Data: Hashable, Content: View> : View {
                             .frame(width: self.cellSize, height: self.cellSize, alignment: .topLeading)
                     }
                     // Make items left-aligned
-                    //Spacer()
+                    Spacer()
                 }
             }
             // Make rows top-aligned
