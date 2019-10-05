@@ -41,9 +41,10 @@ public struct CollectionView<Data: Hashable, Content: View> : View {
                     ForEach(rowObjects, id: \.self) { (object: Data) in
                         // Display the items as specified by the content closure
                         self.content(object)
+                            .frame(width: self.cellSize, height: self.cellSize, alignment: .topLeading)
                     }
                     // Make items left-aligned
-                    Spacer()
+                    //Spacer()
                 }
             }
             // Make rows top-aligned
