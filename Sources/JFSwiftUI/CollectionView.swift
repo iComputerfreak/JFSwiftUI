@@ -9,19 +9,26 @@ import SwiftUI
 
 /// Represents a collection view that displays multiple cells with a given spacing and cell size
 @available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-public struct CollectionView<Data, Content> : View where Data: Hashable, Content: View {
+public struct CollectionView<Data: Hashable, Content: View> : View {
     public var data: [Data]
     public var content: (Data) -> Content
     
-    public var spacing: CGFloat = 10
-    public var cellSize: CGFloat = 300
+    public var spacing: CGFloat
+    public var cellSize: CGFloat
     
     /// Returns the number of items that fit in one row, given the specified spacing and itemSize
-    var itemsPerRow: Int {
+    private var itemsPerRow: Int {
         let screenWidth = UIScreen.main.bounds.width
         let itemsPerRow = Int(screenWidth / (cellSize + spacing))
         // There should be placed at least one item per row
         return itemsPerRow > 0 ? itemsPerRow : 1
+    }
+    
+    public init(_ data: [Data], spacing: CGFloat = 10, cellSize: CGFloat = 300, content: @escaping (Data) -> Content) {
+        self.data = data
+        self.content = content
+        self.spacing = spacing
+        self.cellSize = cellSize
     }
     
     public var body: some View {
