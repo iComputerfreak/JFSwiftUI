@@ -14,21 +14,21 @@ public struct CollectionView<Data: Hashable, Content: View> : View {
     public var content: (Data) -> Content
     
     public var spacing: CGFloat
-    public var cellSize: CGFloat
+    public var preferredCellSize: CGFloat
     
     /// Returns the number of items that fit in one row, given the specified spacing and itemSize
     private var itemsPerRow: Int {
         let screenWidth = UIScreen.main.bounds.width
-        let itemsPerRow = Int(screenWidth / (cellSize + spacing))
+        let itemsPerRow = Int(screenWidth / (preferredCellSize + spacing))
         // There should be placed at least one item per row
         return itemsPerRow > 0 ? itemsPerRow : 1
     }
     
-    public init(_ data: [Data], spacing: CGFloat = 10, cellSize: CGFloat = 300, content: @escaping (Data) -> Content) {
+    public init(_ data: [Data], spacing: CGFloat = 10, preferredCellSize: CGFloat = 300, content: @escaping (Data) -> Content) {
         self.data = data
         self.content = content
         self.spacing = spacing
-        self.cellSize = cellSize
+        self.preferredCellSize = preferredCellSize
     }
     
     public var body: some View {
@@ -41,10 +41,14 @@ public struct CollectionView<Data: Hashable, Content: View> : View {
                     ForEach(rowObjects, id: \.self) { (object: Data) in
                         // Display the items as specified by the content closure
                         self.content(object)
-                            .frame(width: self.cellSize, height: self.cellSize, alignment: .topLeading)
+                            .aspectRatio(1.0, contentMode: .fill)
+                            //.frame(width: self.cellSize, height: self.cellSize, alignment: .topLeading)
                     }
                     // Make items left-aligned
-                    Spacer()
+                    ForEach(0..<(self.itemsPerRow - rowObjects.count)) { _ in
+                        // Add a Spacer for every missing cell in that row
+                        Spacer()
+                    }
                 }
             }
             // Make rows top-aligned
