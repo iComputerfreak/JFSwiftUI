@@ -9,7 +9,7 @@ import SwiftUI
 
 /// Represents a collection view that displays multiple cells with a given spacing and cell size
 @available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-public struct CollectionView<Data: Hashable, Content: View> : View {
+public struct CollectionView<Data, Content> : View where Data: Hashable, Data: Identifiable, Content: View {
     public var data: [Data]
     public var content: (Data) -> Content
     
@@ -38,7 +38,7 @@ public struct CollectionView<Data: Hashable, Content: View> : View {
             ForEach(data.chunked(into: itemsPerRow), id: \.self) { (rowObjects: [Data]) in
                 // Create a HStack with the rowObjects
                 HStack(spacing: self.spacing) {
-                    ForEach(rowObjects, id: \.self) { (object: Data) in
+                    ForEach(rowObjects) { (object: Data) in
                         // Display the items as specified by the content closure
                         self.content(object)
                             .aspectRatio(1.0, contentMode: .fill)
