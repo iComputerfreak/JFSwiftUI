@@ -26,27 +26,29 @@ public struct CollectionView<Data, Content> : View where Data: Hashable, Data: I
     }
     
     public var body: some View {
-        // A VStack for all the rows
-        VStack(spacing: spacing) {
-            // For each row
-            ForEach(data.chunked(into: itemsPerRow), id: \.self) { (rowObjects: [Data]) in
-                // Create a HStack with the rowObjects
-                HStack(spacing: self.spacing) {
-                    ForEach(rowObjects) { (object: Data) in
-                        // Display the items as specified by the content closure
-                        self.content(object)
-                    }
-                    // Make items left-aligned
-                    ForEach(0..<(self.itemsPerRow - rowObjects.count)) { _ in
-                        // Add a Spacer for every missing cell in that row
-                        Spacer()
+        ScrollView(.vertical, showsIndicators: false) {
+            // A VStack for all the rows
+            VStack(spacing: spacing) {
+                // For each row
+                ForEach(data.chunked(into: itemsPerRow), id: \.self) { (rowObjects: [Data]) in
+                    // Create a HStack with the rowObjects
+                    HStack(spacing: self.spacing) {
+                        ForEach(rowObjects) { (object: Data) in
+                            // Display the items as specified by the content closure
+                            self.content(object)
+                        }
+                        // Make items left-aligned
+                        ForEach(0..<(self.itemsPerRow - rowObjects.count)) { _ in
+                            // Add a Spacer for every missing cell in that row
+                            Spacer()
+                        }
                     }
                 }
-            }
-            // Make rows top-aligned
-            Spacer()
+                // Make rows top-aligned
+                //Spacer()
             }
             .padding(self.spacing)
+        }
     }
 }
 
