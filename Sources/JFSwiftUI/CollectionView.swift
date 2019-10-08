@@ -14,21 +14,15 @@ public struct CollectionView<Data, Content> : View where Data: Hashable, Data: I
     public var content: (Data) -> Content
     
     public var spacing: CGFloat
-    public var preferredCellSize: CGFloat
+    public var itemsPerRow: Int
+    public var itemsPerRowInLandscape: Int
     
-    /// Returns the number of items that fit in one row, given the specified spacing and itemSize
-    private var itemsPerRow: Int {
-        let screenWidth = UIScreen.main.bounds.width
-        let itemsPerRow = Int(screenWidth / (preferredCellSize + spacing))
-        // There should be placed at least one item per row
-        return itemsPerRow > 0 ? itemsPerRow : 1
-    }
-    
-    public init(_ data: [Data], spacing: CGFloat = 10, preferredCellSize: CGFloat = 300, content: @escaping (Data) -> Content) {
+    public init(_ data: [Data], spacing: CGFloat = 10, itemsPerRow: Int = 3, itemsPerRowInLandscape: Int = itemsPerRow, content: @escaping (Data) -> Content) {
         self.data = data
         self.content = content
         self.spacing = spacing
-        self.preferredCellSize = preferredCellSize
+        self.itemsPerRow = itemsPerRow
+        self.itemsPerRowInLandscape = itemsPerRowInLandscape
     }
     
     public var body: some View {
@@ -42,7 +36,6 @@ public struct CollectionView<Data, Content> : View where Data: Hashable, Data: I
                         // Display the items as specified by the content closure
                         self.content(object)
                             .aspectRatio(1.0, contentMode: .fill)
-                            //.frame(width: self.cellSize, height: self.cellSize, alignment: .topLeading)
                     }
                     // Make items left-aligned
                     ForEach(0..<(self.itemsPerRow - rowObjects.count)) { _ in
