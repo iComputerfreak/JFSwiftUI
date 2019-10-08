@@ -9,13 +9,18 @@ import SwiftUI
 
 /// Represents a collection view that displays multiple cells with a given spacing and cell size
 @available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-public struct CollectionView<Data, Content> : View where Data: Hashable, Data: Identifiable, Content: View {
+// Disabled (private)
+private struct CollectionView<Data, Content> : View where Data: Hashable, Data: Identifiable, Content: View {
     public var data: [Data]
     public var content: (Data) -> Content
     
     public var spacing: CGFloat
     public var itemsPerRow: Int
     public var itemsPerRowInLandscape: Int
+    
+    private var itemCount: Int {
+        return UIDevice.current.orientation.isLandscape ? itemsPerRowInLandscape : itemsPerRow
+    }
     
     public init(_ data: [Data], spacing: CGFloat = 10, itemsPerRow: Int = 3, itemsPerRowInLandscape: Int = 5, content: @escaping (Data) -> Content) {
         self.data = data
@@ -29,7 +34,7 @@ public struct CollectionView<Data, Content> : View where Data: Hashable, Data: I
         // A VStack for all the rows
         VStack(spacing: spacing) {
             // For each row
-            ForEach(data.chunked(into: itemsPerRow), id: \.self) { (rowObjects: [Data]) in
+            ForEach(data.chunked(into: itemCount), id: \.self) { (rowObjects: [Data]) in
                 // Create a HStack with the rowObjects
                 HStack(spacing: self.spacing) {
                     ForEach(rowObjects) { (object: Data) in
@@ -37,7 +42,7 @@ public struct CollectionView<Data, Content> : View where Data: Hashable, Data: I
                         self.content(object)
                     }
                     // Make items left-aligned
-                    ForEach(0..<(self.itemsPerRow - rowObjects.count)) { _ in
+                    ForEach(0..<(self.itemCount - rowObjects.count)) { _ in
                         // Add a Spacer for every missing cell in that row
                         Spacer()
                     }

@@ -13,7 +13,7 @@ public struct LoadingScreen<Content: View>: View {
     public var isLoading: Bool
     public var content: Content
     
-    public init(isLoading: Bool, content: () -> Content) {
+    public init(isLoading: Bool, content: @convention(block) () -> Content) {
         self.isLoading = isLoading
         self.content = content()
     }
