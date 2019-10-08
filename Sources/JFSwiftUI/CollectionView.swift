@@ -35,7 +35,6 @@ public struct CollectionView<Data, Content> : View where Data: Hashable, Data: I
                     ForEach(rowObjects) { (object: Data) in
                         // Display the items as specified by the content closure
                         self.content(object)
-                            .aspectRatio(1.0, contentMode: .fill)
                     }
                     // Make items left-aligned
                     ForEach(0..<(self.itemsPerRow - rowObjects.count)) { _ in
