@@ -17,7 +17,7 @@ public struct CollectionView<Data, Content> : View where Data: Hashable, Data: I
     public var itemsPerRow: Int
     public var itemsPerRowInLandscape: Int
     
-    public init(_ data: [Data], spacing: CGFloat = 10, itemsPerRow: Int = 3, itemsPerRowInLandscape: Int = itemsPerRow, content: @escaping (Data) -> Content) {
+    public init(_ data: [Data], spacing: CGFloat = 10, itemsPerRow: Int = 3, itemsPerRowInLandscape: Int = 5, content: @escaping (Data) -> Content) {
         self.data = data
         self.content = content
         self.spacing = spacing
