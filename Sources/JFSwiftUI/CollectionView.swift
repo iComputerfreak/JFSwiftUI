@@ -44,7 +44,7 @@ public struct CollectionView<Data, Content> : View where Data: Hashable, Data: I
                 }
             }
             // Make rows top-aligned
-            //Spacer()
+            Spacer()
         }
         .padding(self.spacing)
     }
