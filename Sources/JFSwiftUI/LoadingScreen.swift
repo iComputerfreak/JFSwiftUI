@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+
+/// Shows a loading screen while a given condition is met
 @available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 public struct LoadingScreen<Content: View>: View {
     
@@ -19,12 +21,15 @@ public struct LoadingScreen<Content: View>: View {
     }
     
     public var body: some View {
-        if (isLoading) {
-            // Create a loading screen
-            return AnyView(self.loadingScreen)
-        } else {
-            // Show the actual content
-            return AnyView(self.content)
+        // Use a group to erase the type
+        Group {
+            if (isLoading) {
+                // Create a loading screen
+                self.loadingScreen
+            } else {
+                // Show the actual content
+                self.content
+            }
         }
     }
     
