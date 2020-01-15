@@ -6,6 +6,9 @@
 //
 
 import SwiftUI
+#if canImport(UIKit)
+import UIKit
+#endif
 
 /// Represents a collection view that displays multiple cells with a given spacing and cell size
 @available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
@@ -19,7 +22,10 @@ private struct CollectionView<Data, Content> : View where Data: Hashable, Data: 
     public var itemsPerRowInLandscape: Int
     
     private var itemCount: Int {
+        #if canImport(UIKit)
         return UIDevice.current.orientation.isLandscape ? itemsPerRowInLandscape : itemsPerRow
+        #endif
+        return itemsPerRow
     }
     
     public init(_ data: [Data], spacing: CGFloat = 10, itemsPerRow: Int = 3, itemsPerRowInLandscape: Int = 5, content: @escaping (Data) -> Content) {

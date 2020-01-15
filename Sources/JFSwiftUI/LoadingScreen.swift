@@ -4,9 +4,8 @@
 //
 //  Created by Jonas Frey on 03.10.19.
 //
-
+#if !os(macOS)
 import SwiftUI
-
 
 /// Shows a loading screen while a given condition is met
 @available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
@@ -41,3 +40,4 @@ public struct LoadingScreen<Content: View>: View {
         }
     }
 }
+#endif

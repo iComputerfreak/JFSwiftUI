@@ -4,7 +4,7 @@
 //
 //  Created by Jonas Frey on 28.06.19.
 //
-
+#if !os(macOS)
 import SwiftUI
 import UIKit
 
@@ -84,3 +84,4 @@ public struct SearchBar: UIViewRepresentable {
     }
     
 }
+#endif
