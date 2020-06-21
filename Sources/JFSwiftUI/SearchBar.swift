@@ -18,11 +18,14 @@ public struct SearchBar: UIViewRepresentable {
     public var onSearchEditingChanged: (() -> Void)?
     /// The text in the search text field
     @Binding public var text: String
+    /// Whether the search bar should automatically become the first responder when appearing
+    public var automaticallyActivate: Bool
     
-    public init(text: Binding<String>, onSearchButtonClicked: (() -> Void)? = nil, onSearchEditingChanged: (() -> Void)? = nil) {
+    public init(text: Binding<String>, onSearchButtonClicked: (() -> Void)? = nil, onSearchEditingChanged: (() -> Void)? = nil, automaticallyActivate: Bool = false) {
         self._text = text
         self.onSearchButtonClicked = onSearchButtonClicked
         self.onSearchEditingChanged = onSearchEditingChanged
+        self.automaticallyActivate = automaticallyActivate
     }
     
     public class Coordinator: NSObject, UISearchBarDelegate {
@@ -53,6 +56,8 @@ public struct SearchBar: UIViewRepresentable {
         let searchBar = UISearchBar(frame: .zero)
         searchBar.delegate = context.coordinator
         searchBar.placeholder = "Search"
+        searchBar.becomeFirstResponder()
+        //searchBar.searchTextField.becomeFirstResponder()
         
         // Create a publisher for the textDidChange notification of the search text field
         let publisher = NotificationCenter.default.publisher(for: UISearchTextField.textDidChangeNotification, object: searchBar.searchTextField)
