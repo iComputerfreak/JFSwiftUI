@@ -56,8 +56,9 @@ public struct SearchBar: UIViewRepresentable {
         let searchBar = UISearchBar(frame: .zero)
         searchBar.delegate = context.coordinator
         searchBar.placeholder = "Search"
-        searchBar.becomeFirstResponder()
-        //searchBar.searchTextField.becomeFirstResponder()
+        if automaticallyActivate {
+            searchBar.becomeFirstResponder()
+        }
         
         // Create a publisher for the textDidChange notification of the search text field
         let publisher = NotificationCenter.default.publisher(for: UISearchTextField.textDidChangeNotification, object: searchBar.searchTextField)
