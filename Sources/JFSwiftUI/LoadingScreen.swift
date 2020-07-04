@@ -45,9 +45,15 @@ public struct LoadingScreen<Content: View>: View {
 @available(iOS 14.0, tvOS 14.0, watchOS 7.0, *)
 public struct LoadingView<Content>: View where Content: View {
     
-    public let text = "Loading..."
+    public let text: String
     @Binding public var isShowing: Bool
     public var content: () -> Content
+    
+    public init(isShowing: Binding<Bool>, text: String = "Loading...", content: @escaping () -> Content) {
+        self.text = text
+        self._isShowing = isShowing
+        self.content = content
+    }
     
     public var body: some View {
         GeometryReader { geometry in
