@@ -40,4 +40,35 @@ public struct LoadingScreen<Content: View>: View {
         }
     }
 }
+
+/// Shows a loading screen while a given condition is met
+@available(iOS 14.0, tvOS 14.0, watchOS 7.0, *)
+public struct LoadingView<Content>: View where Content: View {
+    
+    public let text = "Loading..."
+    @Binding public var isShowing: Bool
+    public var content: () -> Content
+    
+    public var body: some View {
+        GeometryReader { geometry in
+            ZStack(alignment: .center) {
+                
+                self.content()
+                    .disabled(self.isShowing)
+                    .blur(radius: self.isShowing ? 3 : 0)
+                
+                ProgressView() {
+                    Text(text)
+                }
+                .frame(width: geometry.size.width / 2,
+                       height: geometry.size.height / 5)
+                .background(Color.secondary.colorInvert())
+                .foregroundColor(Color.primary)
+                .cornerRadius(20)
+                .opacity(self.isShowing ? 1 : 0)
+                
+            }
+        }
+    }
+}
 #endif
