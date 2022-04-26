@@ -10,6 +10,7 @@ import UIKit
 
 /// Represents a search bar view
 @available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+@available(*, deprecated, message: "Use .searchable instead")
 public struct SearchBar: UIViewRepresentable {
     
     /// Gets called when the keyboard search button is pressed

@@ -4,8 +4,8 @@
 //
 //  Created by Jonas Frey on 03.10.19.
 //
-#if !os(macOS)
 import SwiftUI
+#if !os(macOS)
 
 /// Shows a loading screen while a given condition is met
 @available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
@@ -49,8 +49,8 @@ public struct LoadingView<Content>: View where Content: View {
     @Binding public var isShowing: Bool
     public var content: () -> Content
     
-    public init(isShowing: Binding<Bool>, text: String = "Loading...", content: @escaping () -> Content) {
-        self.text = text
+    public init(isShowing: Binding<Bool>, text: String? = nil, content: @escaping () -> Content) {
+        self.text = text ?? "Loading..."
         self._isShowing = isShowing
         self.content = content
     }
@@ -65,6 +65,7 @@ public struct LoadingView<Content>: View where Content: View {
                 
                 ProgressView() {
                     Text(text)
+                        .multilineTextAlignment(.center)
                 }
                 .frame(width: geometry.size.width / 2,
                        height: geometry.size.height / 5)

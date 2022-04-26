@@ -11,6 +11,7 @@ import UIKit
 
 /// Represents a spinning activity indicator view
 @available(iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+@available(*, deprecated, message: "Use ProgressView() instead")
 public struct ActivityIndicator: UIViewRepresentable {
     
     public typealias UIViewType = UIActivityIndicatorView
