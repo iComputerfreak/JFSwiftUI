@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-@available(macOS 12.0, *)
+@available(macOS 12.0, iOS 15.0, *)
 extension AsyncImage {
     init<I, L, F>(
         url: URL?,
